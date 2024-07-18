@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "656651651643",
+    "project_id": "flutter-auth-tutorial-aaace",
+    "storage_bucket": "flutter-auth-tutorial-aaace.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656651651643:android:a6da7bdc49ee3cb8b3ea1e",
+        "android_client_info": {
+          "package_name": "eu.vikithedev.flutterauthtest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBILhTGiVXFpi1D5uBb3qRY7lTU4hbAJo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
