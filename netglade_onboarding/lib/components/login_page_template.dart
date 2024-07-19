@@ -47,7 +47,7 @@ class _LoginPageTemplateState extends ConsumerState<LoginPageTemplate> {
   @override
   Widget build(BuildContext context) {
     ref.listen<AuthState>(
-        authBlocProvider, (_, state) => handleAuthStateChange(state));
+        authServiceProvider, (_, state) => handleAuthStateChange(state));
 
     return FullscreenView(
       child: Padding(

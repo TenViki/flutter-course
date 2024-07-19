@@ -25,7 +25,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
   }
 
   void handleLogin() {
-    ref.watch(authBlocProvider.notifier).authenticate(
+    ref.watch(authServiceProvider.notifier).authenticate(
           _usernameController.text,
           _passwordController.text,
         );

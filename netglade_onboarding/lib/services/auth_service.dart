@@ -1,10 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:flutter_secure_storage/flutter_secure_storage.dart";
-import 'package:netglade_onboarding/auth_repository.dart';
+import 'package:netglade_onboarding/repos/auth_repository.dart';
 
-import 'auth_state.dart';
+import '../auth_state.dart';
 
-// Bloc
 class AuthService extends StateNotifier<AuthState> {
   final AuthRepository _authRepository;
   final _storage = const FlutterSecureStorage();
@@ -53,6 +52,22 @@ class AuthService extends StateNotifier<AuthState> {
     try {
       final token = await _storage.read(key: "auth_token");
       final tokenExpire = await _storage.read(key: "auth_token_expire");
+
+      // check if token is expired
+      if (tokenExpire != null) {
+        final expire = DateTime.parse(tokenExpire);
+        if (expire.isBefore(DateTime.now())) {
+          await _storage.delete(key: "auth_token");
+          await _storage.delete(key: "auth_token_expire");
+          state = AuthUnauthenticated();
+          return;
+        }
+      } else {
+        await _storage.delete(key: "auth_token");
+        await _storage.delete(key: "auth_token_expire");
+        state = AuthUnauthenticated();
+        return;
+      }
 
       print("APP STARTUP");
       print(token);

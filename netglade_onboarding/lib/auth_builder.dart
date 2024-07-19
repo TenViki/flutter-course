@@ -11,10 +11,10 @@ class AuthBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authBlocProvider);
-    final authBloc = ref.watch(authBlocProvider.notifier);
+    final authState = ref.watch(authServiceProvider);
+    final authService = ref.watch(authServiceProvider.notifier);
 
-    ref.listen(authBlocProvider, (prevState, _) {
+    ref.listen(authServiceProvider, (prevState, _) {
       if (prevState is AuthLoading) {
         Navigator.pop(context);
       }
@@ -38,7 +38,7 @@ class AuthBuilder extends ConsumerWidget {
 
     return Container();
 
-    // return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+    // return BlocBuilder<authService, AuthState>(builder: (context, state) {
     //   if (state is AuthInitial)
     //     return SplashScreen();
     //   else if (state is AuthUnauthenticated ||
