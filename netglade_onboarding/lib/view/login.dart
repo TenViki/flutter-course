@@ -11,12 +11,14 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: LoginPageTemplate(
         topText: "Welcome back!",
         children: [
           const Expanded(
             child: LoginForm(),
           ),
+          const SizedBox(height: 24),
           LoginFooter(
               onTap: () => Navigator.of(context)
                   .push(createTweenTransition(const SignupPage())),

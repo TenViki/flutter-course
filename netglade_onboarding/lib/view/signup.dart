@@ -15,6 +15,7 @@ class SignupPage extends StatelessWidget {
         const Expanded(
           child: SignupForm(),
         ),
+        const SizedBox(height: 24),
         LoginFooter(
             onTap: () => Navigator.of(context).pop(),
             descText: "Already have an account?",

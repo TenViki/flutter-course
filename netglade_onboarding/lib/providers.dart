@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netglade_onboarding/auth_state.dart';
 
-import 'auth_bloc.dart';
+import 'auth_service.dart';
 import 'auth_repository.dart';
 
 final dioProvider = Provider<Dio>((ref) {
@@ -14,7 +14,7 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(dio);
 });
 
-final authBlocProvider = StateNotifierProvider<AuthBloc, AuthState>((ref) {
+final authBlocProvider = StateNotifierProvider<AuthService, AuthState>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  return AuthBloc(authRepository);
+  return AuthService(authRepository);
 });

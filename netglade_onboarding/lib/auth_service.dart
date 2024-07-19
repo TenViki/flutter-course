@@ -5,11 +5,11 @@ import 'package:netglade_onboarding/auth_repository.dart';
 import 'auth_state.dart';
 
 // Bloc
-class AuthBloc extends StateNotifier<AuthState> {
+class AuthService extends StateNotifier<AuthState> {
   final AuthRepository _authRepository;
   final _storage = const FlutterSecureStorage();
 
-  AuthBloc(this._authRepository) : super(AuthInitial()) {
+  AuthService(this._authRepository) : super(AuthInitial()) {
     _intialAuth();
   }
 

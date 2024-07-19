@@ -6,18 +6,13 @@ class FullscreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minWidth: MediaQuery.of(context).size.width,
-          minHeight: MediaQuery.of(context).size.height,
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: child,
         ),
-        child: IntrinsicHeight(
-          child: SafeArea(
-            child: child,
-          ),
-        ),
-      ),
+      ],
     );
   }
 }

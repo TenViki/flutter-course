@@ -46,9 +46,6 @@ class _LoginPageTemplateState extends ConsumerState<LoginPageTemplate> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authBlocProvider);
-    final authBloc = ref.watch(authBlocProvider.notifier);
-
     ref.listen<AuthState>(
         authBlocProvider, (_, state) => handleAuthStateChange(state));
 
