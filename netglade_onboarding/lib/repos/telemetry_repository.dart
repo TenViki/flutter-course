@@ -6,9 +6,20 @@ class TelemetryRepository {
 
   TelemetryRepository(this._dio);
 
-  Future<List<Telemetry>> retrieveTelemetry(String token) async {
-    final response = await _dio.get("/telemetry",
-        options: Options(headers: {"Authorization": "Bearer $token"}));
+  Future<List<Telemetry>> retrieveTelemetry(
+    String token,
+    DateTime? start,
+    DateTime? end,
+  ) async {
+    final response = await _dio.get("/telemetry?pageSize=99",
+        options: Options(headers: {
+          "Authorization": "Bearer $token"
+        }, extra: {
+          "startingTimeStamp":
+              start != null ? start.microsecondsSinceEpoch / 1000 : null,
+          "endingTimeStamp":
+              end != null ? end.microsecondsSinceEpoch / 1000 : null,
+        }));
 
     if (response.statusCode == 200) {
       print("Telemetry retrieved");

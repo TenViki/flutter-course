@@ -33,7 +33,7 @@ class AuthBuilder extends ConsumerWidget {
     if (authState is AuthAuthenticated) {
       // Navigator.pop(context);
       // Navigator.of(context).pop();
-      return const HomePage();
+      return HomePage();
     }
 
     return Container();

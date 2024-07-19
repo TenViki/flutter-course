@@ -30,6 +30,7 @@ class TelemetryData extends TelemetryState {
 class TelemetryService extends _$TelemetryService {
   @override
   TelemetryState build() {
+    updateTelemetry();
     final timer = Timer.periodic(
       const Duration(seconds: 10),
       (t) => updateTelemetry(),
@@ -48,8 +49,8 @@ class TelemetryService extends _$TelemetryService {
       return;
     }
 
-    final telemetry =
-        await telemetryRepository.retrieveTelemetry(authState.token);
+    final telemetry = await telemetryRepository.retrieveTelemetry(
+        authState.token, null, null);
     state = TelemetryData(telemetry);
   }
 }
