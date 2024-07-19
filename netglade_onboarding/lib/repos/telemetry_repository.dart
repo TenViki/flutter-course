@@ -10,22 +10,38 @@ class TelemetryRepository {
     String token,
     DateTime? start,
     DateTime? end,
+    int? minAltitude,
+    int? maxAltitude,
   ) async {
-    final response = await _dio.get("/telemetry?pageSize=99",
-        options: Options(headers: {
-          "Authorization": "Bearer $token"
-        }, extra: {
-          "startingTimeStamp":
-              start != null ? start.microsecondsSinceEpoch / 1000 : null,
-          "endingTimeStamp":
-              end != null ? end.microsecondsSinceEpoch / 1000 : null,
-        }));
+    try {
+      final response = await _dio.get("/telemetry",
+          options: Options(headers: {"Authorization": "Bearer $token"}),
+          queryParameters: {
+            "pageSize": "99",
+            if (maxAltitude != null) "highestAltitude": maxAltitude.toString(),
+            if (minAltitude != null) "lowestAltitude": minAltitude.toString(),
+            if (start != null)
+              "startingTimeStamp":
+                  (start.microsecondsSinceEpoch ~/ 1000).toString(),
+            if (end != null)
+              "endingTimeStamp":
+                  (end.microsecondsSinceEpoch ~/ 1000).toString(),
+          });
 
-    if (response.statusCode == 200) {
-      print("Telemetry retrieved");
-      return (response.data as List).map((e) => Telemetry.fromJson(e)).toList();
-    } else {
-      print(response);
+      if (response.statusCode == 200) {
+        print("Telemetry retrieved");
+        return (response.data as List)
+            .map((e) => Telemetry.fromJson(e))
+            .toList();
+      } else {
+        print(response);
+        throw Exception("Failed to retrieve telemetry");
+      }
+    } on DioException catch (e) {
+      print(e.response);
+
+      //
+
       throw Exception("Failed to retrieve telemetry");
     }
   }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netglade_onboarding/auth_state.dart';
 import 'package:netglade_onboarding/components/nav_drawer.dart';
 import 'package:netglade_onboarding/components/telemetry_details.dart';
+import 'package:netglade_onboarding/components/telemetry_filter.dart';
 import 'package:netglade_onboarding/components/telemetry_tile.dart';
 import 'package:netglade_onboarding/models/telemetry.dart';
 import 'package:netglade_onboarding/providers.dart';
@@ -20,6 +21,7 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   Telemetry? selectedTelemetry = null;
+  List<Telemetry> telemetry = [];
 
   void openTelemetryDetails(Telemetry telemetry) {
     // statefully change the selected telemetry
@@ -30,10 +32,11 @@ class _HomePageState extends ConsumerState<HomePage> {
     _pc.open();
   }
 
-  @override
-  void initState() {
-    // _pc.hide();
-    super.initState();
+  void openTelemetryFilter() {
+    showDialog(
+      context: context,
+      builder: (context) => TelemetryFilter(),
+    );
   }
 
   @override
@@ -48,6 +51,18 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home Page"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              ref.read(telemetryServiceProvider.notifier).updateTelemetry();
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.filter_alt),
+            onPressed: openTelemetryFilter,
+          ),
+        ],
       ),
       drawer: NavDrawer(),
       body: SlidingUpPanel(

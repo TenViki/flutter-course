@@ -28,8 +28,14 @@ class TelemetryData extends TelemetryState {
 
 @riverpod
 class TelemetryService extends _$TelemetryService {
+  DateTime? startDate;
+  DateTime? endDate;
+  int? minAltitude;
+  int? maxAltitude;
+
   @override
   TelemetryState build() {
+    print("Building telemetry service");
     updateTelemetry();
     final timer = Timer.periodic(
       const Duration(seconds: 10),
@@ -42,6 +48,7 @@ class TelemetryService extends _$TelemetryService {
   }
 
   Future<void> updateTelemetry() async {
+    print("Updating telemetry");
     final telemetryRepository = ref.read(telemetryRepositoryProvider);
     final authState = ref.read(authServiceProvider);
 
@@ -49,8 +56,34 @@ class TelemetryService extends _$TelemetryService {
       return;
     }
 
+    print("$startDate, $endDate, $minAltitude, $maxAltitude");
+
     final telemetry = await telemetryRepository.retrieveTelemetry(
-        authState.token, null, null);
+        authState.token, startDate, endDate, minAltitude, maxAltitude);
+
+    print(telemetry);
+
     state = TelemetryData(telemetry);
+  }
+
+  void setStartDate(DateTime? date) {
+    print("Setting start date");
+    startDate = date;
+    updateTelemetry();
+  }
+
+  void setEndDate(DateTime? date) {
+    endDate = date;
+    updateTelemetry();
+  }
+
+  void setMinAltitude(int? altitude) {
+    minAltitude = altitude;
+    updateTelemetry();
+  }
+
+  void setMaxAltitude(int? altitude) {
+    maxAltitude = altitude;
+    updateTelemetry();
   }
 }

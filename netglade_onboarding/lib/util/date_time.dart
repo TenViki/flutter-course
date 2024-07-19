@@ -17,3 +17,8 @@ String getDateTime(int timestamp) {
   final formatter = DateFormat('dd. MM. yyyy HH:mm:ss');
   return formatter.format(d);
 }
+
+String formatDateTime(DateTime d) {
+  final formatter = DateFormat('dd. MM. yyyy');
+  return formatter.format(d);
+}
