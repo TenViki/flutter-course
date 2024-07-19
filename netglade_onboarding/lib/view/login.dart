@@ -6,7 +6,7 @@ import 'package:netglade_onboarding/util/page_transition.dart';
 import 'package:netglade_onboarding/view/signup.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
           ),
           LoginFooter(
               onTap: () => Navigator.of(context)
-                  .push(createTweenTransition(SignupPage())),
+                  .push(createTweenTransition(const SignupPage())),
               descText: "Don't have an account yet?",
               actionText: "Create it now!",
               icon: Icons.add)

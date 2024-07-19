@@ -1,34 +1,71 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
+import 'package:netglade_onboarding/auth_repository.dart';
 
-import 'auth_event.dart';
 import 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitial()) {
-    on<AppStarted>((event, emit) async {
-      // Simulate a delay for loading initial state
-      await Future.delayed(Duration(seconds: 1));
-      emit(AuthUnauthenticated());
-    });
+// Bloc
+class AuthBloc extends StateNotifier<AuthState> {
+  final AuthRepository _authRepository;
+  final _storage = const FlutterSecureStorage();
 
-    on<LoggedIn>((event, emit) async {
-      emit(AuthLoading());
-      // Simulate a delay for authentication
-      await Future.delayed(Duration(seconds: 1));
-      // Simple auth logic: username == password
-      if (event.username == event.password) {
-        // Generate a mock token for the example
-        final token = 'mock_token_${event.username}';
+  AuthBloc(this._authRepository) : super(AuthInitial()) {
+    _intialAuth();
+  }
 
-        emit(AuthAuthenticated(
-            event.username, "${event.username}@test.cz", token));
-      } else {
-        emit(AuthFailure("Incorrect username or password"));
+  Future<void> authenticate(String username, String password) async {
+    state = AuthLoading();
+    try {
+      print("Trying to auth");
+      final result = await _authRepository.authenticate(username, password);
+      final token = result['token']!;
+      final user = await _authRepository.getUser(token);
+      print("Auth success");
+
+      await _storage.write(key: "auth_token", value: token);
+      print(result);
+      await _storage.write(
+          key: "auth_token_expire", value: result['expiration']!);
+      state = AuthAuthenticated(token, user);
+    } catch (e) {
+      print("ERROR: $e");
+      state = const AuthFailure('Authentication failed');
+    }
+  }
+
+  Future<void> logout() async {
+    if (state is AuthAuthenticated) {
+      final token = (state as AuthAuthenticated).token;
+
+      await _storage.delete(key: "auth_token");
+      await _storage.delete(key: "auth_token_expire");
+
+      try {
+        await _authRepository.logout(token);
+        state = AuthUnauthenticated();
+      } catch (e) {
+        state = const AuthFailure('Logout failed');
       }
-    });
+    }
+  }
 
-    on<LoggedOut>((event, emit) async {
-      emit(AuthUnauthenticated());
-    });
+  Future<void> _intialAuth() async {
+    try {
+      final token = await _storage.read(key: "auth_token");
+      final tokenExpire = await _storage.read(key: "auth_token_expire");
+
+      print("APP STARTUP");
+      print(token);
+      print(tokenExpire);
+
+      if (token != null) {
+        final user = await _authRepository.getUser(token);
+        state = AuthAuthenticated(token, user);
+      } else {
+        state = AuthUnauthenticated();
+      }
+    } catch (e) {
+      state = const AuthFailure('Failed to authenticate');
+    }
   }
 }

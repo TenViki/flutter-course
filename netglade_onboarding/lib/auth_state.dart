@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:netglade_onboarding/models/user.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();
@@ -12,15 +13,14 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthAuthenticated extends AuthState {
-  final String username;
-  final String email;
   final String token;
+  final User user;
   // user object
 
-  const AuthAuthenticated(this.username, this.email, this.token);
+  const AuthAuthenticated(this.token, this.user);
 
   @override
-  List<Object> get props => [username];
+  List<Object> get props => [token];
 }
 
 class AuthUnauthenticated extends AuthState {}

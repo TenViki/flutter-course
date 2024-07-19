@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import "package:flutter_bloc/flutter_bloc.dart";
-import "package:netglade_onboarding/auth_bloc.dart";
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:netglade_onboarding/auth_builder.dart";
-import "package:netglade_onboarding/auth_event.dart";
 import "package:netglade_onboarding/theme/themes.dart";
 
 void main() {
-  runApp(
-    BlocProvider(
-      create: (context) => AuthBloc()..add(AppStarted()),
-      child: MainApp(),
-    ),
-  );
+  // write here ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const ProviderScope(
+    child: MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {

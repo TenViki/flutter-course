@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:netglade_onboarding/auth_bloc.dart';
-import 'package:netglade_onboarding/auth_event.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netglade_onboarding/components/login_button.dart';
 import 'package:netglade_onboarding/components/login_textfield.dart';
+import 'package:netglade_onboarding/providers.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _loginFormKey = GlobalKey<FormState>();
@@ -26,10 +25,10 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void handleLogin() {
-    context.read<AuthBloc>().add(LoggedIn(
-          username: _usernameController.text,
-          password: _passwordController.text,
-        ));
+    ref.watch(authBlocProvider.notifier).authenticate(
+          _usernameController.text,
+          _passwordController.text,
+        );
   }
 
   @override

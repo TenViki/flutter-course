@@ -24,7 +24,7 @@ class LoginTextfield extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: Icon(icon),
-        contentPadding: EdgeInsets.all(16),
+        contentPadding: const EdgeInsets.all(16),
         fillColor: Theme.of(context).colorScheme.surfaceContainerHigh,
         filled: true,
         enabledBorder: OutlineInputBorder(
