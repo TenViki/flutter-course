@@ -35,7 +35,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   void openTelemetryFilter() {
     showDialog(
       context: context,
-      builder: (context) => TelemetryFilter(),
+      builder: (context) => const TelemetryFilter(),
     );
   }
 
@@ -95,9 +95,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 },
                 itemCount: telemetryState.telemetry.length,
               )
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
+            : telemetryState is TelemetryError
+                ? Center(
+                    child: Text(telemetryState.message),
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
       ),
     );
   }

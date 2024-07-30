@@ -46,10 +46,12 @@ class TelemetryRepository {
     }
   }
 
-  Future<List<Telemetry>> getFavouriteTelemtries(String token) async {
+  Future<List<Telemetry>> getFavouriteTelemtries(
+      String token, String userId) async {
     try {
-      final response = await _dio.get("/telemetry/favourites",
-          options: Options(headers: {"Authorization ": "Bearer $token"}));
+      final response = await _dio.get("/favourite-telemetry",
+          options: Options(headers: {"Authorization": "Bearer $token"}),
+          queryParameters: {"userId": userId});
 
       if (response.statusCode == 200) {
         print("Favourite telemetry retrieved");
@@ -61,11 +63,31 @@ class TelemetryRepository {
         throw Exception("Failed to retrieve favourite telemetry");
       }
     } on DioException catch (e) {
-      print(e.response);
-
-      //
-
+      print(e);
       throw Exception("Failed to retrieve favourite telemetry");
+    }
+  }
+
+  Future<void> addFavourite(
+      String token, String userId, int telemetryId) async {
+    print("$telemetryId, ${userId}");
+    try {
+      await _dio.post("/favourite-telemetry",
+          options: Options(headers: {"Authorization": "Bearer $token"}),
+          queryParameters: {"userId": userId, "telemetryId": telemetryId});
+    } on DioException catch (e) {
+      print(e.response);
+    }
+  }
+
+  Future<void> removeFavourite(
+      String token, String userId, int telemetryId) async {
+    try {
+      await _dio.delete("/favourite-telemetry",
+          options: Options(headers: {"Authorization": "Bearer $token"}),
+          queryParameters: {"userId": userId, "telemetryId": telemetryId});
+    } on DioException catch (e) {
+      print(e);
     }
   }
 }

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netglade_onboarding/models/telemetry.dart';
+import 'package:netglade_onboarding/services/telemetry_service.dart';
 import 'package:netglade_onboarding/util/date_time.dart';
+import 'package:netglade_onboarding/util/telemetry.dart';
 
-class TelemetryDetails extends StatelessWidget {
+class TelemetryDetails extends ConsumerWidget {
   final Telemetry? telemetry;
   const TelemetryDetails({super.key, required this.telemetry});
 
   @override
-  Widget build(BuildContext context) {
-    if (telemetry == null) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final telemetryState = ref.watch(telemetryServiceProvider);
+    final telemetryService = ref.read(telemetryServiceProvider.notifier);
+
+    if (telemetry == null || telemetryState is! TelemetryData) {
       return Container();
     }
 
@@ -62,24 +68,36 @@ class TelemetryDetails extends StatelessWidget {
           ]),
           Expanded(child: Container()),
           RawMaterialButton(
-            onPressed: () {},
+            onPressed: () =>
+                telemetryService.toggleFavourite(telemetry!, context),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
             elevation: 0,
-            fillColor: Theme.of(context).colorScheme.secondaryContainer,
+            fillColor: telemetry != null &&
+                    isFavorite(telemetry!, telemetryState.favouriteTelemetries)
+                ? Theme.of(context).colorScheme.secondary.withOpacity(.1)
+                : Theme.of(context).colorScheme.secondaryContainer,
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
-              child: Text(
-                "Add to favorites",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              child: telemetry != null &&
+                      isFavorite(
+                          telemetry!, telemetryState.favouriteTelemetries)
+                  ? Text("Remove from favorites",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ))
+                  : Text("Add to favorites",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      )),
             ),
           ),
           SizedBox(height: 16),
