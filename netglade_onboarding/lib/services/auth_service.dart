@@ -48,6 +48,27 @@ class AuthService extends StateNotifier<AuthState> {
     }
   }
 
+  Future<void> register(String username, String email, String password) async {
+    state = AuthLoading();
+    try {
+      await _authRepository.register(username, email, password);
+
+      // auto login after register
+      final result = await _authRepository.authenticate(username, password);
+      final token = result['token']!;
+      final user = await _authRepository.getUser(token);
+
+      await _storage.write(key: "auth_token", value: token);
+
+      await _storage.write(
+          key: "auth_token_expire", value: result['expiration']!);
+
+      state = AuthAuthenticated(token, user);
+    } catch (e) {
+      state = const AuthFailure('Failed to register');
+    }
+  }
+
   Future<void> _intialAuth() async {
     try {
       final token = await _storage.read(key: "auth_token");

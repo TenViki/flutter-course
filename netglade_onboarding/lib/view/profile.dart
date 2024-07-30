@@ -15,7 +15,7 @@ class ProfilePage extends ConsumerWidget {
 
     if (authState is! AuthAuthenticated) {
       // go to login
-      Navigator.of(context).pushNamed("/");
+
       return Container();
     }
 
@@ -45,6 +45,7 @@ class ProfilePage extends ConsumerWidget {
             Expanded(child: Container()),
             ElevatedButton(
               onPressed: () {
+                Navigator.of(context).pushNamed("/");
                 authService.logout();
               },
               child: Container(

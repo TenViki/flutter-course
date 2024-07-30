@@ -6,20 +6,25 @@ class LoginTextfield extends StatelessWidget {
   final bool obscureText;
   final IconData icon;
   final TextInputAction textInputAction;
+
+  final String? Function(String?)? validator;
+
   const LoginTextfield({
     super.key,
     required this.hintText,
     required this.controller,
     required this.icon,
+    this.validator,
     this.obscureText = false,
     this.textInputAction = TextInputAction.done,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       textInputAction: textInputAction,
+      validator: validator,
       obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,

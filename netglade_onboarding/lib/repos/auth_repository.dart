@@ -29,6 +29,18 @@ class AuthRepository {
     }
   }
 
+  Future<void> register(String username, String email, String password) async {
+    final response = await _dio.post('/register', data: {
+      'username': username,
+      'email': email,
+      'password': password,
+    });
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to register');
+    }
+  }
+
   Future<User> getUser(String token) async {
     Map<String, dynamic> decoded = JwtDecoder.decode(token);
 
