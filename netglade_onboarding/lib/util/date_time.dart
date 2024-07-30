@@ -28,8 +28,5 @@ bool isNumber(String? s) {
     return false;
   }
 
-  print(s);
-  print(int.tryParse(s) != null);
-
   return int.tryParse(s) != null;
 }

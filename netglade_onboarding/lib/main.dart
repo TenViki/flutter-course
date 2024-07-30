@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:netglade_onboarding/auth_builder.dart";
 import "package:netglade_onboarding/theme/themes.dart";
+import 'package:netglade_onboarding/view/charts.dart';
 import 'package:netglade_onboarding/view/favourite.dart';
 import 'package:netglade_onboarding/view/home.dart';
 
@@ -27,6 +28,7 @@ class MainApp extends StatelessWidget {
       routes: {
         "/home": (context) => HomePage(),
         "/favourites": (context) => FavouritePage(),
+        "/charts": (context) => ChartsPage(),
       },
     );
   }
