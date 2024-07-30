@@ -5,6 +5,7 @@ import "package:netglade_onboarding/theme/themes.dart";
 import 'package:netglade_onboarding/view/charts.dart';
 import 'package:netglade_onboarding/view/favourite.dart';
 import 'package:netglade_onboarding/view/home.dart';
+import 'package:netglade_onboarding/view/profile.dart';
 
 void main() {
   // write here ensureInitialized();
@@ -29,6 +30,7 @@ class MainApp extends StatelessWidget {
         "/home": (context) => HomePage(),
         "/favourites": (context) => FavouritePage(),
         "/charts": (context) => ChartsPage(),
+        "/profile": (context) => ProfilePage(),
       },
     );
   }

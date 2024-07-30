@@ -50,7 +50,7 @@ class NavDrawer extends ConsumerWidget {
           NavDrawerLink(
             text: authState.user.username,
             icon: Icons.person,
-            onTap: () {},
+            onTap: () => _pushPage(context, "/profile"),
           ),
         ],
       ),
