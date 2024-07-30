@@ -62,6 +62,12 @@ class _HomePageState extends ConsumerState<HomePage> {
             icon: const Icon(Icons.filter_alt),
             onPressed: openTelemetryFilter,
           ),
+          IconButton(
+            onPressed: () {
+              ref.read(authServiceProvider.notifier).logout();
+            },
+            icon: const Icon(Icons.logout),
+          ),
         ],
       ),
       drawer: NavDrawer(),

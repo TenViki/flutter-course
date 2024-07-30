@@ -7,7 +7,7 @@ import 'repos/auth_repository.dart';
 import 'services/auth_service.dart';
 
 final dioProvider = Provider<Dio>((ref) {
-  return Dio(BaseOptions(baseUrl: 'http://192.168.1.162:5104'));
+  return Dio(BaseOptions(baseUrl: 'http://192.168.1.161:5104'));
 });
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {

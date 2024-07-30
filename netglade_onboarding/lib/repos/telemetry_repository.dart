@@ -45,4 +45,27 @@ class TelemetryRepository {
       throw Exception("Failed to retrieve telemetry");
     }
   }
+
+  Future<List<Telemetry>> getFavouriteTelemtries(String token) async {
+    try {
+      final response = await _dio.get("/telemetry/favourites",
+          options: Options(headers: {"Authorization ": "Bearer $token"}));
+
+      if (response.statusCode == 200) {
+        print("Favourite telemetry retrieved");
+        return (response.data as List)
+            .map((e) => Telemetry.fromJson(e))
+            .toList();
+      } else {
+        print(response);
+        throw Exception("Failed to retrieve favourite telemetry");
+      }
+    } on DioException catch (e) {
+      print(e.response);
+
+      //
+
+      throw Exception("Failed to retrieve favourite telemetry");
+    }
+  }
 }

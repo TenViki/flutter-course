@@ -20,6 +20,7 @@ class _TelemetryFilterState extends ConsumerState<TelemetryFilter> {
     minAltitudeController.text =
         ref.read(telemetryServiceProvider.notifier).minAltitude?.toString() ??
             "";
+    ;
     maxAltitudeController.text =
         ref.read(telemetryServiceProvider.notifier).maxAltitude?.toString() ??
             "";

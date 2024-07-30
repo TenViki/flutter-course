@@ -7,6 +7,11 @@ import 'package:netglade_onboarding/providers.dart';
 class NavDrawer extends ConsumerWidget {
   const NavDrawer({super.key});
 
+  void _pushPage(BuildContext context, String route) {
+    print("Pushing page: $route");
+    Navigator.of(context).pushNamed(route);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authServiceProvider) as AuthAuthenticated;
@@ -24,17 +29,17 @@ class NavDrawer extends ConsumerWidget {
           NavDrawerLink(
             text: "Home",
             icon: Icons.home,
-            onTap: () {},
+            onTap: () => _pushPage(context, "/home"),
           ),
           NavDrawerLink(
             text: "Charts",
             icon: Icons.line_axis,
-            onTap: () {},
+            onTap: () => _pushPage(context, "/charts"),
           ),
           NavDrawerLink(
             text: "Favorites",
             icon: Icons.star,
-            onTap: () {},
+            onTap: () => _pushPage(context, "/favourites"),
           ),
           NavDrawerLink(
             text: "Errors",
