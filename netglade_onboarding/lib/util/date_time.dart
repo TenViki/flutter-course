@@ -22,3 +22,14 @@ String formatDateTime(DateTime d) {
   final formatter = DateFormat('dd. MM. yyyy');
   return formatter.format(d);
 }
+
+bool isNumber(String? s) {
+  if (s == null) {
+    return false;
+  }
+
+  print(s);
+  print(int.tryParse(s) != null);
+
+  return int.tryParse(s) != null;
+}
