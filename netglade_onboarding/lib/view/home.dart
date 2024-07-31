@@ -79,6 +79,10 @@ class _HomePageState extends ConsumerState<HomePage> {
         body: telemetryState is TelemetryData
             ? ListView.builder(
                 itemBuilder: (context, index) {
+                  if (index == telemetryState.telemetry.length) {
+                    return SizedBox(height: 120);
+                  }
+
                   final data = telemetryState
                       .telemetry[telemetryState.telemetry.length - index - 1];
 
@@ -87,7 +91,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     onTap: () => openTelemetryDetails(data),
                   );
                 },
-                itemCount: telemetryState.telemetry.length,
+                itemCount: telemetryState.telemetry.length + 1,
               )
             : telemetryState is TelemetryError
                 ? Center(
