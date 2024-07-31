@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
         "/favourites": (context) => const FavouritePage(),
         "/charts": (context) => const ChartsPage(),
         "/profile": (context) => const ProfilePage(),
-        "/errors": (context) => const ErrorsPage(),
+        "/errors": (context) => const ErrorPage(),
       },
     );
   }

@@ -44,7 +44,7 @@ class NavDrawer extends ConsumerWidget {
           NavDrawerLink(
             text: "Errors",
             icon: Icons.error,
-            onTap: () {},
+            onTap: () => _pushPage(context, "/errors"),
           ),
           const Expanded(child: SizedBox()),
           NavDrawerLink(

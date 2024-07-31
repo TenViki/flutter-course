@@ -7,10 +7,11 @@ class ErrorRepository {
   ErrorRepository(this._dio);
 
   Future<List<TelemetryError>> getErrors(String token) async {
-    final response = await _dio.get(
-      '/telemetry/errors',
-      options: Options(headers: {"Authorization": "Bearer $token"}),
-    );
+    final response = await _dio.get('/telemetry/errors',
+        options: Options(headers: {"Authorization": "Bearer $token"}),
+        queryParameters: {
+          'pageSize': '99',
+        });
 
     if (response.statusCode == 200) {
       final errors = response.data as List;
