@@ -12,7 +12,6 @@ class AuthBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authServiceProvider);
-    final authService = ref.watch(authServiceProvider.notifier);
 
     ref.listen(authServiceProvider, (prevState, _) {
       if (prevState is AuthLoading) {

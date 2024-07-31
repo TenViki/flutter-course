@@ -19,30 +19,30 @@ class FavouritePage extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Favourites"),
-      ),
-      drawer: const NavDrawer(),
-      body: telemetryState is TelemetryData
-          ? ListView.builder(
+        appBar: AppBar(
+          title: const Text("Favourites"),
+        ),
+        drawer: const NavDrawer(),
+        body: switch (telemetryState) {
+          TelemetryData(favouriteTelemetries: var favouriteTelemetries) =>
+            ListView.builder(
               itemBuilder: (context, index) {
-                final data = telemetryState.favouriteTelemetries[
-                    telemetryState.favouriteTelemetries.length - index - 1];
+                final data = favouriteTelemetries[
+                    favouriteTelemetries.length - index - 1];
 
                 return TelemetryTile(
                   telemetry: data,
                   onTap: () {},
                 );
               },
-              itemCount: telemetryState.favouriteTelemetries.length,
-            )
-          : telemetryState is TelemetryError
-              ? Center(
-                  child: Text(telemetryState.message),
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
-    );
+              itemCount: favouriteTelemetries.length,
+            ),
+          TelemetryError(message: var message) => Center(
+              child: Text(message),
+            ),
+          TelemetryLoading() => const Center(
+              child: CircularProgressIndicator(),
+            ),
+        });
   }
 }

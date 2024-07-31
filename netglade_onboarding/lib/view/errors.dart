@@ -17,7 +17,6 @@ class _ErrorPageState extends ConsumerState<ErrorPage> {
   @override
   void initState() {
     final authState = ref.read(authServiceProvider);
-    final errorState = ref.read(telemetryErrorServiceProvider);
     final errorProvider = ref.read(telemetryErrorServiceProvider.notifier);
 
     if (authState is AuthAuthenticated) {
@@ -38,37 +37,37 @@ class _ErrorPageState extends ConsumerState<ErrorPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Errors"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              ref.read(telemetryErrorServiceProvider.notifier).updateErrors();
-            },
-          ),
-        ],
-      ),
-      drawer: const NavDrawer(),
-      body: errorState is TelemetryErrorData
-          ? ListView.builder(
+        appBar: AppBar(
+          title: const Text("Errors"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                ref.read(telemetryErrorServiceProvider.notifier).updateErrors();
+              },
+            ),
+          ],
+        ),
+        drawer: const NavDrawer(),
+        body:
+            // switch
+            switch (errorState) {
+          TelemetryErrorLoading() => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          TelemetryErrorData(errors: var errors) => ListView.builder(
               itemBuilder: (context, index) {
-                final data =
-                    errorState.errors[errorState.errors.length - index - 1];
+                final data = errors[errors.length - index - 1];
 
                 return ErrorTile(
                   error: data,
                 );
               },
-              itemCount: errorState.errors.length,
-            )
-          : errorState is TelemetryErrorError
-              ? Center(
-                  child: Text(errorState.message),
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
-    );
+              itemCount: errors.length,
+            ),
+          TelemetryErrorError(message: var message) => Center(
+              child: Text(message),
+            ),
+        });
   }
 }

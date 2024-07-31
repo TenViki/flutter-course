@@ -38,7 +38,18 @@ class ChartsPage extends ConsumerWidget {
         children: [
           if (telemetryService.minAltitude != null ||
               telemetryService.maxAltitude != null)
-            const Text("Some filters are applied"),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: const Text(
+                    "Some filters are applied",
+                    textAlign: TextAlign.center,
+                  )),
+            ),
           SfCartesianChart(
             title: const ChartTitle(text: "Temperature"),
             primaryXAxis: const CategoryAxis(),

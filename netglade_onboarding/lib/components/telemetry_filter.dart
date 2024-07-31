@@ -97,7 +97,8 @@ class _TelemetryFilterState extends ConsumerState<TelemetryFilter> {
                 labelText: "Min Altitude",
                 hintText: "in meters",
               ),
-              validator: (v) => isNumber(v) ? null : "Invalid number",
+              validator: (v) =>
+                  isNumber(v) || v == "" ? null : "Invalid number",
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -106,7 +107,8 @@ class _TelemetryFilterState extends ConsumerState<TelemetryFilter> {
                 labelText: "Max Altitude",
                 hintText: "in meters",
               ),
-              validator: (v) => isNumber(v) ? null : "Invalid number",
+              validator: (v) =>
+                  isNumber(v) || v == "" ? null : "Invalid number",
             ),
             const SizedBox(height: 16),
             ElevatedButton(

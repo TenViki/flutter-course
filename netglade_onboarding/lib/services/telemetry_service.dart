@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:netglade_onboarding/auth_state.dart';
 import 'package:netglade_onboarding/models/telemetry.dart';
@@ -10,12 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part "telemetry_service.g.dart";
 
-class TelemetryState extends Equatable {
-  const TelemetryState();
-
-  @override
-  List<Object> get props => [];
-}
+sealed class TelemetryState {}
 
 class TelemetryLoading extends TelemetryState {}
 
@@ -23,19 +17,13 @@ class TelemetryData extends TelemetryState {
   final List<Telemetry> telemetry;
   final List<Telemetry> favouriteTelemetries;
 
-  const TelemetryData(this.telemetry, this.favouriteTelemetries);
-
-  @override
-  List<Object> get props => [telemetry];
+  TelemetryData(this.telemetry, this.favouriteTelemetries);
 }
 
 class TelemetryError extends TelemetryState {
   final String message;
 
-  const TelemetryError(this.message);
-
-  @override
-  List<Object> get props => [message];
+  TelemetryError(this.message);
 }
 
 @riverpod
@@ -79,7 +67,7 @@ class TelemetryService extends _$TelemetryService {
 
       state = TelemetryData(telemetry, favouriteTelemetries);
     } catch (e) {
-      state = const TelemetryError("Failed to retrieve telemetry");
+      state = TelemetryError("Failed to retrieve telemetry");
       return;
     }
   }

@@ -28,7 +28,7 @@ class AuthService extends StateNotifier<AuthState> {
       state = AuthAuthenticated(token, user);
     } catch (e) {
       print("ERROR: $e");
-      state = const AuthFailure('Authentication failed');
+      state = AuthFailure('Authentication failed');
     }
   }
 
@@ -43,7 +43,7 @@ class AuthService extends StateNotifier<AuthState> {
         await _authRepository.logout(token);
         state = AuthUnauthenticated();
       } catch (e) {
-        state = const AuthFailure('Logout failed');
+        state = AuthFailure('Logout failed');
       }
     }
   }
@@ -65,7 +65,7 @@ class AuthService extends StateNotifier<AuthState> {
 
       state = AuthAuthenticated(token, user);
     } catch (e) {
-      state = const AuthFailure('Failed to register');
+      state = AuthFailure('Failed to register');
     }
   }
 
@@ -101,7 +101,7 @@ class AuthService extends StateNotifier<AuthState> {
         state = AuthUnauthenticated();
       }
     } catch (e) {
-      state = const AuthFailure('Failed to authenticate');
+      state = AuthFailure('Failed to authenticate');
     }
   }
 }

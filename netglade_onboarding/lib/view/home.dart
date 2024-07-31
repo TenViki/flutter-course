@@ -66,41 +66,39 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
       drawer: const NavDrawer(),
       body: SlidingUpPanel(
-        minHeight: 0,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-        controller: _pc,
-        isDraggable: true,
-        backdropEnabled: true,
-        color: Theme.of(context).colorScheme.surfaceContainerHigh,
-        panel: TelemetryDetails(telemetry: selectedTelemetry),
-        body: telemetryState is TelemetryData
-            ? ListView.builder(
+          minHeight: 0,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+          controller: _pc,
+          isDraggable: true,
+          backdropEnabled: true,
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          panel: TelemetryDetails(telemetry: selectedTelemetry),
+          body: switch (telemetryState) {
+            TelemetryData(telemetry: var telemetry) => ListView.builder(
                 itemBuilder: (context, index) {
-                  if (index == telemetryState.telemetry.length) {
+                  if (index == telemetry.length) {
                     return SizedBox(height: 120);
                   }
 
-                  final data = telemetryState
-                      .telemetry[telemetryState.telemetry.length - index - 1];
+                  final data = telemetry[telemetry.length - index - 1];
 
                   return TelemetryTile(
                     telemetry: data,
                     onTap: () => openTelemetryDetails(data),
                   );
                 },
-                itemCount: telemetryState.telemetry.length + 1,
-              )
-            : telemetryState is TelemetryError
-                ? Center(
-                    child: Text(telemetryState.message),
-                  )
-                : const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-      ),
+                itemCount: telemetry.length + 1,
+              ),
+            TelemetryError(message: var message) => Center(
+                child: Text(message),
+              ),
+            TelemetryLoading() => const Center(
+                child: CircularProgressIndicator(),
+              ),
+          }),
     );
   }
 }
