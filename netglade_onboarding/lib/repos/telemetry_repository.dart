@@ -71,7 +71,7 @@ class TelemetryRepository {
 
   Future<void> addFavourite(
       String token, String userId, int telemetryId) async {
-    print("$telemetryId, ${userId}");
+    print("$telemetryId, $userId");
     try {
       await _dio.post("/favourite-telemetry",
           options: Options(headers: {"Authorization": "Bearer $token"}),

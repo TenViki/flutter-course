@@ -52,7 +52,7 @@ class TelemetryErrorService extends _$TelemetryErrorService {
           await ref.read(errorRepositoryProvider).getErrors(authState.token);
       state = TelemetryErrorData(errors);
     } catch (e) {
-      state = TelemetryErrorError("Failed to get errors");
+      state = const TelemetryErrorError("Failed to get errors");
     }
   }
 }

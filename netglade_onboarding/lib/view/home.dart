@@ -13,14 +13,14 @@ import "package:sliding_up_panel/sliding_up_panel.dart";
 final PanelController _pc = PanelController();
 
 class HomePage extends ConsumerStatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  Telemetry? selectedTelemetry = null;
+  Telemetry? selectedTelemetry;
   List<Telemetry> telemetry = [];
 
   void openTelemetryDetails(Telemetry telemetry) {
@@ -64,7 +64,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ],
       ),
-      drawer: NavDrawer(),
+      drawer: const NavDrawer(),
       body: SlidingUpPanel(
         minHeight: 0,
         borderRadius: const BorderRadius.only(

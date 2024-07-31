@@ -27,13 +27,13 @@ class ProfilePage extends ConsumerWidget {
       body: FullscreenView(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Icon(
               Icons.person,
               size: 64,
               color: Theme.of(context).colorScheme.primary,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ListTile(
               title: const Text("Username"),
               subtitle: Text(authState.user.username),
@@ -57,7 +57,7 @@ class ProfilePage extends ConsumerWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),

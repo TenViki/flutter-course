@@ -34,12 +34,12 @@ class TelemetryDetails extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             "Telemetry Details",
             style: Theme.of(context).textTheme.headlineSmall,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Row(
             children: [
               _buildDetail(context, "Time captured",
@@ -48,7 +48,7 @@ class TelemetryDetails extends ConsumerWidget {
                   Icons.speed),
             ],
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Row(
             children: [
               _buildDetail(
@@ -61,7 +61,7 @@ class TelemetryDetails extends ConsumerWidget {
                   "${telemetry!.temperature} K", Icons.thermostat),
             ],
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Row(children: [
             _buildDetail(context, "Radiation", "${telemetry!.radiation} cps",
                 Icons.cell_tower)
@@ -100,7 +100,7 @@ class TelemetryDetails extends ConsumerWidget {
                       )),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -116,7 +116,7 @@ class TelemetryDetails extends ConsumerWidget {
             icon,
             color: Theme.of(context).colorScheme.secondary,
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -124,7 +124,7 @@ class TelemetryDetails extends ConsumerWidget {
                 title,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              SizedBox(height: 2),
+              const SizedBox(height: 2),
               Text(
                 value,
                 style: Theme.of(context).textTheme.bodyMedium,

@@ -20,7 +20,6 @@ class _TelemetryFilterState extends ConsumerState<TelemetryFilter> {
     minAltitudeController.text =
         ref.read(telemetryServiceProvider.notifier).minAltitude?.toString() ??
             "";
-    ;
     maxAltitudeController.text =
         ref.read(telemetryServiceProvider.notifier).maxAltitude?.toString() ??
             "";
@@ -91,7 +90,7 @@ class _TelemetryFilterState extends ConsumerState<TelemetryFilter> {
                 ]
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextFormField(
               controller: minAltitudeController,
               decoration: const InputDecoration(
@@ -100,7 +99,7 @@ class _TelemetryFilterState extends ConsumerState<TelemetryFilter> {
               ),
               validator: (v) => isNumber(v) ? null : "Invalid number",
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextFormField(
               controller: maxAltitudeController,
               decoration: const InputDecoration(
@@ -109,7 +108,7 @@ class _TelemetryFilterState extends ConsumerState<TelemetryFilter> {
               ),
               validator: (v) => isNumber(v) ? null : "Invalid number",
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 if (_filterForm.currentState!.validate()) {
