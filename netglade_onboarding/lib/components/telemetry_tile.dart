@@ -28,6 +28,7 @@ class TelemetryTile extends ConsumerWidget {
           ),
         ],
       ),
+      contentPadding: const EdgeInsets.only(left: 16, right: 8),
       subtitle: Row(
         children: [
           // guessing that these are in millimeters

@@ -14,19 +14,20 @@ class TelemetryRepository {
     int? maxAltitude,
   ) async {
     try {
-      final response = await _dio.get("/telemetry",
-          options: Options(headers: {"Authorization": "Bearer $token"}),
-          queryParameters: {
-            "pageSize": "99",
-            if (maxAltitude != null) "highestAltitude": maxAltitude.toString(),
-            if (minAltitude != null) "lowestAltitude": minAltitude.toString(),
-            if (start != null)
-              "startingTimeStamp":
-                  (start.microsecondsSinceEpoch ~/ 1000).toString(),
-            if (end != null)
-              "endingTimeStamp":
-                  (end.microsecondsSinceEpoch ~/ 1000).toString(),
-          });
+      final response = await _dio.get(
+        "/telemetry",
+        options: Options(headers: {"Authorization": "Bearer $token"}),
+        queryParameters: {
+          "pageSize": "99",
+          if (maxAltitude != null) "highestAltitude": maxAltitude.toString(),
+          if (minAltitude != null) "lowestAltitude": minAltitude.toString(),
+          if (start != null)
+            "startingTimeStamp":
+                (start.microsecondsSinceEpoch ~/ 1000).toString(),
+          if (end != null)
+            "endingTimeStamp": (end.microsecondsSinceEpoch ~/ 1000).toString(),
+        },
+      );
 
       if (response.statusCode == 200) {
         print("Telemetry retrieved");

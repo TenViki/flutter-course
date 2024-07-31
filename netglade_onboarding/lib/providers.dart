@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netglade_onboarding/auth_state.dart';
+import 'package:netglade_onboarding/repos/error_repository.dart';
 import 'package:netglade_onboarding/repos/telemetry_repository.dart';
 
 import 'repos/auth_repository.dart';
@@ -23,3 +24,6 @@ final authServiceProvider =
 
 final telemetryRepositoryProvider =
     Provider((ref) => TelemetryRepository(ref.read(dioProvider)));
+
+final errorRepositoryProvider =
+    Provider((ref) => ErrorRepository(ref.read(dioProvider)));
