@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "130261670803",
+    "project_id": "boardvote-822da",
+    "storage_bucket": "boardvote-822da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130261670803:android:5b39b6175e131d1b9ee666",
+        "android_client_info": {
+          "package_name": "com.boardvote.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130261670803-fs5fdkadn09ctloscq9tjcbicfdaq6o4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcT7n2FQlVoxkCS5iTwrL4GMDWDgMMweE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130261670803-fs5fdkadn09ctloscq9tjcbicfdaq6o4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
