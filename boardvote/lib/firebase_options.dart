@@ -64,9 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '130261670803',
     projectId: 'boardvote-822da',
     storageBucket: 'boardvote-822da.appspot.com',
-    iosClientId:
-        '130261670803-plpncgoi9g7msc7kaa1u6on9po69admf.apps.googleusercontent.com',
-    iosBundleId: 'com.boardvote.app',
+    iosClientId: '130261670803-plpncgoi9g7msc7kaa1u6on9po69admf.apps.googleusercontent.com',
+    iosBundleId: 'com.example.boardvote',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -75,9 +74,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '130261670803',
     projectId: 'boardvote-822da',
     storageBucket: 'boardvote-822da.appspot.com',
-    iosClientId:
-        '130261670803-plpncgoi9g7msc7kaa1u6on9po69admf.apps.googleusercontent.com',
-    iosBundleId: 'com.boardvote.app',
+    iosClientId: '130261670803-plpncgoi9g7msc7kaa1u6on9po69admf.apps.googleusercontent.com',
+    iosBundleId: 'com.example.boardvote',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -89,4 +87,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'boardvote-822da.appspot.com',
     measurementId: 'G-CD15F0GVST',
   );
+
 }

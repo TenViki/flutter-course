@@ -8,41 +8,62 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FullscreenView(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/logo.png',
-                color: Theme.of(context).colorScheme.primary,
-                width: 100,
-              ),
-              Text(
-                'Welcome to BoardVote',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              Expanded(
-                child: Container(),
-              ),
-              RawMaterialButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(
-                      'assets/google.png',
-                      width: 24,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                  Image.asset(
+                    'assets/logo.png',
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 100,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Welcome to BoardVote',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                    const SizedBox(width: 8),
-                    Text('Sign in with Google'),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(),
+                  ),
+                  RawMaterialButton(
+                    onPressed: () => throw Exception(),
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      bottom: 12,
+                      top: 12,
+                      right: 24,
+                    ),
+                    fillColor: Theme.of(context).colorScheme.secondaryContainer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(200),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          'assets/google.png',
+                          width: 24,
+                        ),
+                        const SizedBox(width: 8),
+                        Text('Continue with Google'),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
